@@ -14,7 +14,7 @@ defmodule Typesense.Http do
   def handle_response(env) do
     case Enum.find(@status_codes, &(&1.status == env.status)) do
       nil -> {:ok, env.body}
-      code -> {:error, code.message}
+      code -> {:error, "#{env.status}: #{env.body["message"] || code.message}"}
     end
   end
 
